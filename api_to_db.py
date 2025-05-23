@@ -135,7 +135,7 @@ if __name__ == "__main__":
     # 처음 400개의 측정소 사용 => api 호출 일일 트래픽 제한 때문에 나눠서 저장 => 날짜 하루 밀리는 것 고려해야 함
     # station_names = station_names[:400]
     # 400번째 이후의 측정소 사용
-    station_names = station_names[401:]
+    # station_names = station_names[400:]
     
     print(f"처리할 측정소 수: {len(station_names)}")
     
@@ -143,7 +143,7 @@ if __name__ == "__main__":
     real_time_url = 'http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getMsrstnAcctoRltmMesureDnsty'
     
     for i, station_name in enumerate(station_names, 1):
-        print(f"[{i}/400] 측정소 {station_name} 데이터 조회 중...")
+        print(f"[{i}/{len(station_names)}] 측정소 {station_name} 데이터 조회 중...")
         
         real_time_params = {
             'dataTerm': 'MONTH',
