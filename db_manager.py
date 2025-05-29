@@ -4,6 +4,7 @@ import psycopg2
 import pandas as pd
 
 class DatabaseManager:
+    # DB 정보 설정
     load_dotenv()
     host = os.getenv('DB_HOST')
     port = os.getenv('DB_PORT')
@@ -11,6 +12,7 @@ class DatabaseManager:
     user = os.getenv('DB_USER')
     password = os.getenv('DB_PASSWD')
     
+    # DB 연결 정보 초기화
     def __init__(self, host=host, port=port, database=database, user=user, password=password):
         self.host = host
         self.port = port
@@ -20,8 +22,8 @@ class DatabaseManager:
         self.connection = None
         self.cursor = None
 
+    # DB(postgresql) 연결
     def connect(self):
-        """데이터베이스 연결"""
         try:
             self.connection = psycopg2.connect(
                 host=self.host,
@@ -36,8 +38,8 @@ class DatabaseManager:
             print(f"데이터베이스 연결 실패: {e}")
             raise
 
+    # SQL 쿼리 실행 및 결과 반환 (SELECT 쿼리용)
     def execute_query(self, query):
-        """SQL 쿼리 실행 및 결과 반환 (SELECT 쿼리용)"""
         try:
             df = pd.read_sql(query, con=self.connection)
             return df
@@ -45,8 +47,8 @@ class DatabaseManager:
             print(f"쿼리 실행 실패: {e}")
             raise
 
+    # 데이터 삽입 쿼리 실행 (INSERT 쿼리용)
     def execute_insert(self, query, values):
-        """데이터 삽입 쿼리 실행 (INSERT 쿼리용)"""
         try:
             self.cursor.execute(query, values)
             self.connection.commit()

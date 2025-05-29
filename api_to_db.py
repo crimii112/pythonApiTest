@@ -1,7 +1,7 @@
 from dotenv import load_dotenv
 import os
 import requests
-from connect_db import DatabaseManager
+from openapiTest.db_manager import DatabaseManager
 import pandas as pd
 import time
 
